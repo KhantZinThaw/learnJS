@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Simple Blog</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1 id="blog-title">My Blog</h1>
+    <p id="blog-tagline">A place to share your thoughts.</p>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="admin.html" class="admin-link">Admin Panel</a> <!-- Admin link -->
+    </nav>
+  </header>
+
+  <main>
+    <!-- <article class="post">
+      <h2>First Blog Post</h2>
+      <p class="meta">Posted by Admin on May 14, 2025</p>
+      <p>This is a sample blog post. You can edit this content from the admin panel.</p>
+    </article> -->
+
+    <section id="blog-posts">
+      <h2>Latest Posts</h2>
+      <div id="post-container"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Simple Blog</p>
+  </footer>
+
+  <script>
+    // Load and display site title and tagline
+    const title = localStorage.getItem("siteTitle") || "My Blog";
+    const tagline = localStorage.getItem("siteTagline") || "A place to share your thoughts.";
+
+    document.getElementById("blog-title").innerText = title;
+    document.getElementById("blog-tagline").innerText = tagline;
+    
+    // Load and display posts
+    const posts = JSON.parse(localStorage.getItem("posts")) || [];
+    const postContainer = document.getElementById("post-container");
+
+    if (posts.length === 0) {
+      postContainer.innerHTML = "<p>No posts yet. Check back later!</p>";
+    } else {
+      posts.forEach(post => {
+        const postDiv = document.createElement("div");
+        postDiv.classList.add("blog-post");
+
+        postDiv.innerHTML = `
+          <h3>${post.title}</h3>
+          <p>${post.content}</p>
+          <hr>
+        `;
+
+        postContainer.appendChild(postDiv);
+      });
+    }
+  </script>
+
+</body>
+</html>
